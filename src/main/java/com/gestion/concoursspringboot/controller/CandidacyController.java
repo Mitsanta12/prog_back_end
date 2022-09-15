@@ -5,6 +5,7 @@ package com.gestion.concoursspringboot.controller;
 import com.gestion.concoursspringboot.Service.CandidacyService;
 import com.gestion.concoursspringboot.model.Candidacy;
 
+import com.gestion.concoursspringboot.model.Candidate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,18 +22,8 @@ public class CandidacyController {
     @Autowired
     private CandidacyService candidacyService;
 
-    // Read operation return list of candidacy
-    @GetMapping("/candidacy")
-    private ResponseEntity<List<Candidacy>> getAllCandidacy(){
-        return ResponseEntity.ok(candidacyService.getAllCandidate());
-    }
 
-    //Read operation with id
-    @GetMapping("/candidacy/{id}")
-    public Optional<Candidacy> getCandidacyById(@PathVariable int id) {
-        return candidacyService.findById(id);
-    }
-
+    // Request for save candidacy
     @PostMapping("/post_candidacy")
     private ResponseEntity<Candidacy> createCandidacy(@RequestBody Candidacy candidacy){
         Candidacy cndtc= candidacyService.create(candidacy);
@@ -45,6 +36,24 @@ public class CandidacyController {
 
     }
 
+    // Update candidacy
+    @RequestMapping(value = "/update_candidacy/{id_candidacy}", method = RequestMethod.PUT)
+    public  void updateCandidacy(@RequestBody Candidacy candidacy, @PathVariable int id){
+        candidacyService.update(candidacy);
+    }
+    // Read operation return list of candidacy
+    @GetMapping("/candidacy")
+    private ResponseEntity<List<Candidacy>> getAllCandidacy(){
+        return ResponseEntity.ok(candidacyService.getAllCandidate());
+    }
+
+    //Read operation with id
+    @GetMapping("/candidacy/{id}")
+    public Optional<Candidacy> getCandidacyById(@PathVariable int id) {
+        return candidacyService.findById(id);
+    }
+
+    //Delete candidacy
     @DeleteMapping("/delete_candidacy/{id_candidacy}")
     private ResponseEntity<Void> deleteCandidacy (@PathVariable int id_candidacy) {
         candidacyService.delete(id_candidacy);

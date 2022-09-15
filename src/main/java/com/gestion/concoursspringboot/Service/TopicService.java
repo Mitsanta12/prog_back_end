@@ -1,5 +1,6 @@
 package com.gestion.concoursspringboot.Service;
 
+import com.gestion.concoursspringboot.model.Candidacy;
 import com.gestion.concoursspringboot.model.Candidate;
 import com.gestion.concoursspringboot.model.Topic;;
 import com.gestion.concoursspringboot.repository.TopicRepository;
@@ -20,6 +21,8 @@ public class TopicService {
     public Topic create(Topic topic){
         return topicRepository.save(topic);
     }
+
+    public Topic update(Topic topic){return topicRepository.save(topic);}
 
     public List<Topic> getAllTopic(){
         return topicRepository.findAll();

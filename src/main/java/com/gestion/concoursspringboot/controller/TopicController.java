@@ -3,6 +3,7 @@ package com.gestion.concoursspringboot.controller;
 import com.gestion.concoursspringboot.Service.AverageService;
 import com.gestion.concoursspringboot.Service.TopicService;
 import com.gestion.concoursspringboot.model.Average;
+import com.gestion.concoursspringboot.model.Candidacy;
 import com.gestion.concoursspringboot.model.Candidate;
 import com.gestion.concoursspringboot.model.Topic;
 import com.gestion.concoursspringboot.repository.TopicRepository;
@@ -20,6 +21,19 @@ public class TopicController {
     @Autowired
     private TopicService topicService;
 
+    //Request for save topic
+    @PostMapping("/post_topic")
+    public Topic createTopic(@RequestBody Topic topic){
+        return topicService.create(topic);
+    }
+
+    //Request for update topic
+    @RequestMapping(value = "/update_topic/{id_topic}", method = RequestMethod.PUT)
+    public  void updateTopic(@RequestBody Topic topic, @PathVariable int id){
+        topicService.update(topic);
+    }
+
+    // Read operation return list of topic
     @GetMapping("/topic")
     private ResponseEntity<List<Topic>> getAllTopic() {
         return ResponseEntity.ok(topicService.getAllTopic());
@@ -31,10 +45,7 @@ public class TopicController {
         return topicService.findById(id);
     }
 
-    @PostMapping("/post_topic")
-    public Topic createTopic(@RequestBody Topic topic){
-        return topicService.create(topic);
-    }
+
 
     @DeleteMapping("/delete_topic/{id_topic}")
     private ResponseEntity<Void> deleteTopic (@PathVariable int id_topic) {

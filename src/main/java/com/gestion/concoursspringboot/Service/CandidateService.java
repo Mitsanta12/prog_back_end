@@ -21,6 +21,7 @@ public class CandidateService {
        return candidateRepository.save(candidate);
     }
 
+    public Candidate update(Candidate candidate){return candidateRepository.save(candidate);}
     public List<Candidate> getAllCandidate(){
         return candidateRepository.findAll();
     }

@@ -18,11 +18,23 @@ public class CandidateController {
   @Autowired
   private CandidateService candidateService;
 
-  // Read operation return list of candidate
-      @GetMapping("/candidate")
+    // Request for save candidate
+    @PostMapping("/post_candidate")
+    public Candidate createCandidate(@RequestBody Candidate candidate){
+        return candidateService.create(candidate);
+    }
+
+    // Request for updating candidate
+    @RequestMapping(value = "/update_candidate/{id_candidate}", method = RequestMethod.PUT)
+    public  void updateCandidate(@RequestBody Candidate candidate, @PathVariable int id){
+        candidateService.update(candidate);
+    }
+
+    // Read operation return list of candidate
+    @GetMapping("/candidate")
       private ResponseEntity <List<Candidate>> getAllCandidate(){
           return ResponseEntity.ok(candidateService.getAllCandidate());
-      }
+    }
 
     //Read operation with id
     @GetMapping("/candidate/{id}")
@@ -30,12 +42,8 @@ public class CandidateController {
           return candidateService.findById(id);
     }
 
-    @PostMapping("/PostCandidate")
-        public Candidate createCandidate(@RequestBody Candidate candidate){
-          return candidateService.create(candidate);
-    }
-
-    @DeleteMapping("/DeleteCandidate/{id_candidate}")
+    //Request for deleting candidate
+    @DeleteMapping("/delete_candidate/{id_candidate}")
     private ResponseEntity<Void> deleteCandidate (@PathVariable int id_candidate) {
         candidateService.delete(id_candidate);
         return ResponseEntity.ok().build();

@@ -24,6 +24,8 @@ public class CandidacyService {
         return candidacyRepository.save(candidacy);
     }
 
+    public Candidacy update(Candidacy candidacy){return candidacyRepository.save(candidacy);}
+
     public List<Candidacy> getAllCandidate(){
         return candidacyRepository.findAll();
     }

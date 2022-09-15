@@ -2,6 +2,7 @@ package com.gestion.concoursspringboot.controller;
 
 import com.gestion.concoursspringboot.Service.AverageService;
 import com.gestion.concoursspringboot.model.Average;
+import com.gestion.concoursspringboot.model.Candidacy;
 import com.gestion.concoursspringboot.model.Candidate;
 import com.gestion.concoursspringboot.repository.AverageRepostory;
 
@@ -19,21 +20,31 @@ public class AverageController {
     @Autowired
     private AverageService averageService;
 
-    @GetMapping("/average")
-    private ResponseEntity<List<Average>> getAllAverage() {
-        return ResponseEntity.ok(averageService.getAllAverage());
-    }
-
-    @GetMapping("/average/{id}")
-    public Optional<Average> getAverageById(@PathVariable int id) {
-        return averageService.findById(id);
-    }
-
+    //Request for save average
     @PostMapping("/post_average")
     public Average createAverage(@RequestBody Average average){
         return averageService.create(average);
     }
 
+    // Request for update average
+    @RequestMapping(value = "/update_average/{id_average}", method = RequestMethod.PUT)
+    public  void updateAverage(@RequestBody Average average, @PathVariable int id){
+        averageService.update(average);
+    }
+
+    //Read operation return list of average
+    @GetMapping("/average")
+    private ResponseEntity<List<Average>> getAllAverage() {
+        return ResponseEntity.ok(averageService.getAllAverage());
+    }
+
+    ////Read operation with id
+    @GetMapping("/average/{id}")
+    public Optional<Average> getAverageById(@PathVariable int id) {
+        return averageService.findById(id);
+    }
+
+    //
     @DeleteMapping("/delete_average/{id_average}")
     private ResponseEntity<Void> deleteAverage (@PathVariable int id_average) {
         averageService.delete(id_average);

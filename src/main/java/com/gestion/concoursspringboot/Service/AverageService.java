@@ -4,6 +4,7 @@ package com.gestion.concoursspringboot.Service;
 import com.gestion.concoursspringboot.model.Average;
 import com.gestion.concoursspringboot.model.Candidacy;
 import com.gestion.concoursspringboot.model.Candidate;
+import com.gestion.concoursspringboot.model.Topic;
 import com.gestion.concoursspringboot.repository.AverageRepostory;
 import com.gestion.concoursspringboot.repository.CandidacyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,7 @@ public class AverageService {
         return averageRepostory.save(average);
     }
 
+    public Average update(Average average){return averageRepostory.save(average);}
     public List<Average> getAllAverage(){
         return averageRepostory.findAll();
     }

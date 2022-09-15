@@ -1,0 +1,664 @@
+openapi: 3.0.1
+info:
+  title: gestion de concours
+  version: 1.0.0
+servers:
+ - url: https://STD21071.com
+paths:
+  /Candidate:
+    post: 
+      tags:
+        - Candidate
+      summary: Create a Candidate           
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewCandidate'
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema: 
+                type: array
+                items:
+                  $ref: "#/components/schemas/Candidate"
+        400:
+          description: Bad request
+  /all:
+    get:
+      tags:
+        - Candidate
+      summary: Get all Candidate
+      description: Get all Candidatee for the entrance exam
+      operationId: getAllCandidate
+      responses:
+        200:
+          description: New Candidate added
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Candidate'
+        400:
+          description: Bad request            
+    put:
+      tags:
+        - Candidate  
+      summary: Update existing Candidatee
+      parameters:
+        - name: id_Candidatee 
+          in: path 
+          schema:
+            type: integer
+          required: true
+      requestBody:
+        description: Update Candidatee
+        content:
+          application/json:
+            schema: 
+              type: array
+              items:
+                $ref: '#/components/schemas/NewCandidate'
+      responses:
+        200: 
+          description: Successful operation
+          content:
+            application/json:
+              schema: 
+                type: array
+                items:
+                  $ref: '#/components/schemas/Candidate' 
+        400:
+          description: Bad request   
+    delete: 
+      tags:
+        - Candidate  
+      summary: Delete Candidate
+      operationId: deleteCandidate
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object 
+                properties:
+                  id:
+                    type: integer
+      responses:
+          200:
+            description: Successful deletion
+            content:
+              text/plain:
+                schema: 
+                  type: string
+          400: 
+            description: Error      
+  /Candidate/{id}:
+    get:
+      tags:
+        - Candidate
+      summary: Get Candidate with specified id
+      parameters:
+        - name: id_Candidatee 
+          in: path 
+          schema:
+            type: integer
+          required: true
+      description: Get Candidate with specified id
+      operationId: getIdCandidate
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Candidate'
+        400:
+          description: Bad request
+    patch: 
+      tags:
+        - Candidate
+      summary: Modify the Candidate parameter
+      parameters:
+        - name: id_Candidatee 
+          in: path 
+          schema:
+            type: integer
+          required: true
+      description: |
+        Possible changes on:
+        * first name: change first name
+        * last name: change last name
+        * id: change id
+      requestBody:
+        content:
+          application/json:
+            schema: 
+              type: array
+              items:
+                $ref: '#/components/schemas/Candidate'
+            examples:
+              changeFirstName:
+                summary: Change first name
+                value:
+                - first_name:
+              changeLastName:
+                summary: Change last name  
+                value:
+                - last_name:
+      responses:
+        200: 
+          description: Candidate edited
+          content:
+            application/json:
+              schema: 
+                type: array
+                items:
+                  $ref: '#/components/schemas/Candidate'
+        400: 
+          description: parametes missing                                     
+    delete: 
+      tags:
+        - Candidate  
+      summary: Delete a candidate by ID
+      parameters:
+        - name: id_Candidate
+          in: path 
+          schema:
+            type: integer
+          required: true
+      responses:
+          200:
+            description: Successful deletion
+            content:
+              text/plain:
+                schema: 
+                  type: string
+          400: 
+            description: Bad request  
+  /Allinfoabout:
+    post: 
+      tags:
+        - Topic
+      summary: Add a new Topic           
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewTopic'
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema: 
+                type: array
+                items:
+                  $ref: "#/components/schemas/Topic"
+        400:
+          description: Bad request
+                  
+    get:
+      tags:
+        - Topic
+      summary: Get all info about it
+      description: Get all Topic for the entrance exam
+      operationId: getAllTopic
+      responses:
+        200:
+          description: Success
+        400:
+          description: Bad request
+  /matiere/{id_matiere}:
+    get: 
+      tags:
+        - Topic
+      summary: Get Topic with specified id
+      parameters:
+        - name: id_matiere 
+          in: path 
+          schema:
+            type: integer
+          required: true
+      description: Get Topic with specified id
+      operationId: getIdGrades
+      responses:
+        200:
+          description: Success
+
+                 
+        400:
+          description: Parameter missing
+    put:
+      tags:
+        - Topic
+      summary: Allows you to modify category data except its id
+      parameters:
+        - name: id_topic 
+          in: path 
+          schema:
+            type: integer
+          required: true
+      requestBody:
+        description: Update topic
+        content:
+          application/json:
+            schema: 
+              type: array
+             
+      responses:
+        200: 
+          description: Success
+          content:
+            application/json:
+              schema: 
+                type: array
+        400:
+          description: Error  
+    patch: 
+      tags:
+        - Topic
+      summary: Modify the topic parameter
+      parameters:
+        - name: id_topic 
+          in: path 
+          schema:
+            type: integer
+          required: true
+      description: |
+        Possible changes on:
+        * Candidate: change Candidate
+        * topic: change name topic
+      requestBody:
+        content:
+          application/json:
+            schema: 
+              type: array
+             
+            examples:
+              changeCandidatee:
+                summary: Change Candidatee
+                value:
+                - first_name:
+                  last_name:
+              changeTopic:
+                summary: change name topic
+                value:
+                - id_topic:
+                  name_topic:   
+      responses:
+        200: 
+          description: Candidatee edited
+          content:
+            application/json:
+              schema: 
+                type: array
+                
+        400: 
+          description: Error 
+    delete: 
+      tags:
+        - Topic   
+      summary: Delete topic with specified id 
+      parameters:
+        - name: id_topic
+          in: path
+          schema:
+            type: integer
+          required: true
+      responses:
+          200:
+            description: Successful deletion
+            content:
+              text/plain:
+                schema: 
+                  type: string
+          400: 
+            description: Parameter missing
+  /average:
+    get:
+      tags:
+        - Average
+      summary: Get all average
+      operationId: getAllAverage
+      description:  Get  all average( math or french)
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Average'
+        400:
+          description: Bad request
+    post: 
+      tags:
+        - Average
+      summary: Create a new average             
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewAverage'
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema: 
+                type: array
+                items:
+                  $ref: "#/components/schemas/Average"
+        400:
+          description: Bad request 
+    delete: 
+      tags:
+        - Average   
+      summary: Delete all average
+      responses:
+          200:
+            description: Successful deletion
+          400: 
+            description: Error  
+  /average/{id_average}:
+    put:
+      tags:
+        - Average   
+      summary: Allows you to modify category data except its id
+      parameters:
+        - name: id_average
+          in: path 
+          schema:
+            type: integer
+          required: true
+      requestBody:
+        description: Update grade of average
+        content:
+          application/json:
+            schema: 
+              type: array
+              items:
+                $ref: '#/components/schemas/NewAverage'
+      responses:
+        200: 
+          description: Success
+          content:
+            application/json:
+              schema: 
+                type: array
+                items:
+                  $ref: '#/components/schemas/Average' 
+        400:
+          description: Bad request
+    patch: 
+      tags:
+        - Average
+      summary: Modify the average of parameter
+      parameters:
+        - name: id_average
+          in: path 
+          schema:
+            type: integer
+          required: true
+      responses:
+        200: 
+          description: Avrage edited
+          content:
+            application/json:
+              schema: 
+                type: array
+                items:
+                  $ref: '#/components/schemas/Average'
+        400: 
+          description: Parameter missing      
+    delete: 
+      tags:
+        - Average   
+      summary: Delete average math with specified id 
+      parameters:
+        - name: id_average 
+          in: path 
+          schema:
+            type: integer
+          required: true
+      responses:
+          200:
+            description: Successful deletion
+            content:
+              text/plain:
+                schema: 
+                  type: string
+                  items:
+                  $ref: '#/components/schemas/Average'
+          400: 
+            description: Parameter missing
+    
+    
+    get:
+      tags:
+        - Candidacy
+      summary: Get all info about 
+      description: Get all candidacy for the entrance exam
+      operationId: getAllCandidacy
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema: 
+                type: array
+                items:
+                  $ref: '#/components/schemas/Candidacy' 
+    post: 
+      tags:
+        - Candidacy
+      summary: Add a new candidacy            
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewCandidacy'
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema: 
+                type: array
+                items:
+                  $ref: "#/components/schemas/Candidacy"
+        400:
+          description: Error     
+  /grades/{id_grade}:
+    get: 
+      tags:
+        - Candidacy
+      summary: Get candidacy with specified id
+      parameters:
+        - name: id_candidacy 
+          in: path 
+          schema:
+            type: integer
+          required: true
+      description: Get candidacy with specified id
+      operationId: getIdCandidacy
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Candidacy'
+        400:
+          description: Parameter missing
+    put:
+      tags:
+        - Candidacy
+      summary: Allows you to modify category data except its id
+      parameters:
+        - name: id_candidacy 
+          in: path 
+          schema:
+            type: integer
+          required: true
+      requestBody:
+        description: Update candidacy
+        content:
+          application/json:
+            schema: 
+              type: array
+              items:
+                $ref: '#/components/schemas/NewCandidacy'
+      responses:
+        200: 
+          description: Success
+          content:
+            application/json:
+              schema: 
+                type: array
+                items:
+                  $ref: '#/components/schemas/Candidacy' 
+        400:
+          description: Bad request  
+    delete: 
+      tags:
+        - Candidacy   
+      summary: Delete candidacy with specified id 
+      parameters:
+        - name: id_candidacy 
+          in: path
+          schema:
+            type: integer
+          required: true
+      responses:
+          200:
+            description: Successful deletion
+            content:
+              text/plain:
+                schema: 
+                  type: string
+          400: 
+            description: Parameter missing
+    patch: 
+      tags:
+        - Candidacy
+      summary: Modify the candidacy parameter
+      parameters:
+        - name: id_candidacy 
+          in: path 
+          schema:
+            type: integer
+          required: true
+      description: |
+        Possible changes on:
+        * candidate: change candidate
+      requestBody:
+        content:
+          application/json:
+            schema: 
+              type: array
+              items:
+                $ref: '#/components/schemas/NewCandidacy'
+            examples:
+              changeCandidate:
+                summary: Change candidate
+                value:
+                - first_name:
+                  last_name:
+      responses:
+        200: 
+          description: Candidate edited
+          content:
+            application/json:
+              schema: 
+                type: array
+                items:
+                  $ref: '#/components/schemas/Candidacy'
+        400: 
+          description: Error  
+components:
+  schemas:
+    Candidate:
+      type: object
+      properties:
+        id_Candidatee:
+          type: integer
+        first_name:
+          type: string
+        last_name:
+          type: string  
+    NewCandidate:
+      type: object
+      properties:
+        first_name:
+          type: string
+        last_name:
+          type: string
+    Topic: 
+      type: object
+      properties:
+        id_topic:
+          type: string
+        Candidate: 
+          type: object
+          properties:
+            first_name:
+              type: string
+            last_name:
+              type: string  
+        topic: 
+          type: object
+          properties:
+            id_topic:
+              type: string
+            name_topic:
+              type: string
+    NewTopic:
+      type: object
+      properties:
+        id_Candidate:
+          type: integer
+        id_topic: 
+          type: integer       
+    Average: 
+          type: object
+          properties:
+            id_average: 
+              type: string
+            points:
+              type: string 
+    NewAverage: 
+          type: object
+          properties:
+            id_average:
+              type: string
+            points:
+              type: string
+    Candidacy: 
+      type: object
+      properties:
+        id_candidacy:
+          type: string
+        candidates: 
+          type: object
+          properties:
+            first_name:
+              type: string
+            last_name:
+              type: string  
+    NewCandidacy:
+      type: object
+      properties:
+        id_candidacy:
+          type: integer       
